@@ -70,7 +70,7 @@ class AdvancedOSINTTool:
     def install_tools(self):
         # تحقق من وجود الأدوات وتثبيتها إذا لزم الأمر
         self.install_tool("ghunt", "https://github.com/mxrch/ghunt.git")
-        self.install_tool("whatsmyname", "https://github.com/benbk1/WhatsMyName.git")
+        self.install_tool("whatsmyname", "https://github.com/WebBreacher/WhatsMyName.git")
 
     def install_tool(self, tool_name, repo_url):
         tool_path = os.path.join(self.tools_dir, tool_name)
@@ -127,6 +127,25 @@ class AdvancedOSINTTool:
         response = requests.get("https://darksearch.io/api/search", params={"query": self.username or self.email}, headers={"Authorization": f"Bearer {api_key}"} )
         if response.status_code == 200:
             self.results["results"]["darksearch"] = response.json()
+    def run_ghunt(self):
+        logging.info("[+] تشغيل GHunt...")
+        tool_path = os.path.join(self.tools_dir, "ghunt")
+        if not os.path.exists(tool_path):
+            logging.error("[!] GHunt غير مثبت. يرجى التأكد من تنزيله")
+            return
+
+        docker_required = self.config["tools"]["ghunt"].get("docker_required", False)
+        if docker_required:
+            subprocess.run(["docker", "run", "--rm", "-v", f"{tool_path}:/ghunt", "ghunt"], check=True)
+        else:
+            subprocess.run([sys.executable, "ghunt.py", "-u", self.username], cwd=tool_path, check=True)
+    def run_whatsmyname(self):
+        logging.info("[+] تشغيل WhatsMyName...")
+        tool_path = os.path.join(self.tools_dir, "whatsmyname")
+        if not os.path.exists(tool_path):
+            logging.error("[!] WhatsMyName غير مثبت. يرجى التأكد من تنزيله")
+            return
+        subprocess.run([sys.executable, "whatsmyname.py", "-u", self.username], cwd=tool_path, check=True)
 
     def save_results(self):
         results_path = os.path.join(self.results_dir, "osint_results.json")
