@@ -1,0 +1,66 @@
+{
+    "meta": {
+        "tool_name": "True.Sys.OSintMaster",
+        "version": "1.0",
+        "email": "example@example.com",
+        "username": "example",
+        "timestamp": "2025-04-01",
+        "tools_used": []
+    },
+    "tools": {
+        "sherlock": {
+            "enabled": true,
+            "timeout": 15,
+            "retry": 3  // عدد المحاولات في حال الفشل
+        },
+        "maigret": {
+            "enabled": true,
+            "timeout": 15,
+            "retry": 3
+        },
+        "holehe": {
+            "enabled": true,
+            "timeout": 10,
+            "retry": 3
+        },
+        "ghunt": {
+            "enabled": true,
+            "docker_required": true,
+            "docker_version_required": "20.10"  // تحديد الإصدار المطلوب من Docker
+        },
+        "whatsmyname": {
+            "enabled": true,
+            "web_archive": true,
+            "timeout": 10
+        },
+        "blackbird": {
+            "enabled": true,
+            "api_key": "your_api_key_here",
+            "timeout": 10
+        },
+        "email2phone": {
+            "enabled": false,
+            "api_key": "",
+            "timeout": 10
+        },
+        "darksearch": {
+            "enabled": false,
+            "api_key": "",
+            "timeout": 10
+        }
+    },
+    "proxy": {
+        "enabled": false,  // تفعيل البروكسي
+        "list": [
+            "http://proxy1.example.com:8080",
+            "socks5://proxy2.example.com:9050"
+        ],
+        "use_per_tool": true,  // استخدام بروكسي مختلف لكل أداة
+        "default_proxy": "http://default_proxy.example.com:3128"  // بروكسي افتراضي
+    },
+    "logging": {
+        "enabled": true,  // تفعيل التسجيل
+        "level": "info",  // مستوى التسجيل (info, debug, error)
+        "log_file": "osint_tool.log"  // حفظ السجلات في ملف
+    }
+}
