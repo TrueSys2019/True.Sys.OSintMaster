@@ -50,13 +50,13 @@ class AdvancedOSINTTool:
         if not os.path.exists(self.venv_dir):
             logging.info("[+] البيئة الافتراضية غير موجودة، جاري إنشائها...")
             subprocess.run([sys.executable, "-m", "venv", self.venv_dir], check=True)
-        
+
         self.activate_venv_and_install_requirements()
 
     def activate_venv_and_install_requirements(self):
         # تفعيل البيئة الافتراضية وتثبيت المكتبات
-        venv_python = os.path.join(self.venv_dir, "bin", "python")
-        venv_pip = os.path.join(self.venv_dir, "bin", "pip")
+        venv_python = os.path.join(self.venv_dir, "bin", "python") if platform.system() != "Windows" else os.path.join(self.venv_dir, "Scripts", "python.exe")
+        venv_pip = os.path.join(self.venv_dir, "bin", "pip") if platform.system() != "Windows" else os.path.join(self.venv_dir, "Scripts", "pip.exe")
 
         if not os.path.exists(venv_python):
             logging.error("[!] لم يتم العثور على Python داخل البيئة الافتراضية")
@@ -64,18 +64,8 @@ class AdvancedOSINTTool:
 
         # تثبيت المكتبات المطلوبة مباشرة
         logging.info("[+] تثبيت المكتبات المطلوبة...")
+
         subprocess.run([venv_pip, "install", "spacy", "requests"], check=True)
-
-
-
-
-
-    def check_and_install_spacy(self):
-        try:
-            import spacy
-        except ImportError:
-            logging.info("[+] مكتبة spacy غير مثبتة، جاري تثبيتها...")
-            subprocess.run([sys.executable, "-m", "pip", "install", "spacy"], check=True)
 
     def install_tool(self, tool_name, repo_url):
         tool_path = os.path.join(self.tools_dir, tool_name)
