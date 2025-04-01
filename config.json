@@ -71,7 +71,7 @@
     "logging": {
         "enabled": true,
         "level": "info",
-        "log_file": "osint_tool.log",
+        "log_file": "True.sys.osint_tool.log",
         "_comment": "إعدادات التسجيل، بما في ذلك مستوى السجلات (info، debug، error) ومسار حفظ السجلات."
     }
 }
