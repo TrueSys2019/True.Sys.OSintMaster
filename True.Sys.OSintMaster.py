@@ -6,7 +6,6 @@ import argparse
 from datetime import datetime
 import platform
 import requests
-import time
 import logging
 from concurrent.futures import ThreadPoolExecutor
 
@@ -64,13 +63,12 @@ class AdvancedOSINTTool:
 
         # تثبيت المكتبات المطلوبة مباشرة
         logging.info("[+] تثبيت المكتبات المطلوبة...")
-
         subprocess.run([venv_pip, "install", "spacy", "requests"], check=True)
 
     def install_tool(self, tool_name, repo_url):
         tool_path = os.path.join(self.tools_dir, tool_name)
         if not os.path.exists(tool_path):
-            logging.info(f"[+] جاري تنزيل {tool_name}...")
+            logging.info(f"[+] جاري تنزيل {tool_name}... من {repo_url}")
             subprocess.run(["git", "clone", repo_url, tool_path], check=True)
 
     def run_tools(self):
