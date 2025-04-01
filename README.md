@@ -23,7 +23,7 @@ True.Sys.OSintMaster is a powerful and comprehensive tool designed to enable cyb
 First, download the source code of the tool from GitHub:
 
 ```bash
-git clone https://github.com/your-repository/True.Sys.OSintMaster.git
+git clone https://github.com/TrueSys2019/True.Sys.OSintMaster.git
 cd True.Sys.OSintMaster
 ```
 
